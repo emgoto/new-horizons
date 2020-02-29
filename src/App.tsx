@@ -1,26 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
+import Canvas from './canvas';
+import DragAndDrop from './drag-and-drop';
 import './App.css';
 
-function App(): JSX.Element {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// Animal crossing map is 7 x 6 acres, and each acre is 16x16 square tiles of size 8px
+const TILE_SIZE = 8;
+const WIDTH = 7 * 16 * TILE_SIZE;
+const HEIGHT = 6 * 16 * TILE_SIZE;
+
+function App() {
+    return (
+        <div>
+            <DragAndDrop>
+                <Canvas width={WIDTH} height={HEIGHT} tileSize={TILE_SIZE} />
+            </DragAndDrop>
+        </div>
+    );
 }
 
 export default App;
