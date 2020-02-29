@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     width: 200px;
-    background-color: #ccc;
+    background-color: #303C74;
     height: 500px;
 
     .item {
@@ -14,5 +14,5 @@ export const Container = styled.div`
 export const Object = styled.div`
     width: 48px;
     height: 48px;
-    background-color: navy;
+    background-color: #131E50;
 `;
