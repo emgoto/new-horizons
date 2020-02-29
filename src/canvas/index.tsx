@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 
+import { Container } from './styled';
+
 const BLUE = '#AED9BD';
 const DARK_GREEN = '#5D9359';
 const YELLOW = '#E2E3A7';
@@ -58,9 +60,9 @@ const Canvas = ({ width, height, tileSize }: Props) => {
     });
 
     return (
-        <>
+        <Container width={width} height={height}>
             <canvas ref={canvasRef} width={width} height={height} className="dropzone" />
-        </>
+        </Container>
     );
 };
 
