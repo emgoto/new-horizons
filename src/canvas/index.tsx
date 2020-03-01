@@ -49,8 +49,8 @@ const Canvas = ({ width, height, tileSize }: Props) => {
         }
 
         const yCoords = randomisedTiles(width, height);
-        yCoords.forEach((yCoord, yIndex) => {
-            yCoord.forEach((xCoord, xIndex) => {
+        yCoords.forEach((yCoord, xIndex) => {
+            yCoord.forEach((xCoord, yIndex) => {
                 ctx.fillStyle = xCoord;
                 ctx.beginPath();
                 ctx.fillRect(xIndex * tileSize, yIndex * tileSize, tileSize, tileSize);
@@ -61,7 +61,7 @@ const Canvas = ({ width, height, tileSize }: Props) => {
 
     return (
         <Container width={width} height={height}>
-            <canvas ref={canvasRef} width={width} height={height} className="dropzone" />
+            <canvas ref={canvasRef} width={width} height={height} className="canvas-dropzone" />
         </Container>
     );
 };

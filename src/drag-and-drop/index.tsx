@@ -2,27 +2,18 @@ import React from 'react';
 import interact from 'interactjs';
 
 import { Container } from './styled';
-import DraggableSidebar from '../draggable-sidebar';
 
 /** Interactjs
  * https://interactjs.io/
  * https://alligator.io/js/drag-and-drop-interactjs/
- * // TODO: Item must only be able to be dragged into dropzone
- * // TODO: resizing the window shouldn't move around the item
  * // TODO: Dragging item into dropzone should create a new duplicate item in the sidebar
  */
 
-const DragAndDrop = ({ children }: { children: React.ReactElement | null }) => {
-    interact('.dropzone').dropzone({
-        accept: '.item'
-    });
-
+const DragAndDrop = ({ children, width }: { children: React.ReactElement[] | null; width: number }) => {
     const position = { x: 0, y: 0 };
+
     interact('.item').draggable({
         listeners: {
-            start(event) {
-                console.log(event.type, event.target);
-            },
             move(event) {
                 position.x += event.dx;
                 position.y += event.dy;
@@ -34,13 +25,24 @@ const DragAndDrop = ({ children }: { children: React.ReactElement | null }) => {
                 targets: [interact.createSnapGrid({ x: 8, y: 8 })],
                 range: Infinity,
                 relativePoints: [{ x: 0, y: 0 }]
+            }),
+            interact.modifiers.restrict({
+                restriction: '.restricted-dropzone',
+                endOnly: false
             })
         ]
     });
 
+    interact('.canvas-dropzone').dropzone({
+        accept: '.item',
+        // Only gets called when at least half of the object is in the dropzone
+        ondrop: function() {
+            console.log('dropped');
+        }
+    });
+
     return (
-        <Container>
-            <DraggableSidebar />
+        <Container className="restricted-dropzone" width={width}>
             <>{children}</>
         </Container>
     );
