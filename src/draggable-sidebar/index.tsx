@@ -4,7 +4,7 @@ import { Container, Object } from './styled';
 
 const DraggableSidebar = () => {
     return (
-        <Container>
+        <Container className="sidebar">
             <Object className="item" />
         </Container>
     );
