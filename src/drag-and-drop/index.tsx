@@ -42,25 +42,27 @@ const DragAndDrop = ({ children, width }: { children: React.ReactElement[] | nul
             // We need to clone it, and then start moving the clone
             if (interaction.pointerIsDown && !interaction.interacting() && currentTarget.style.transform === '') {
                 element = currentTarget.cloneNode(true);
+
+                // Need to add absolute positioning, as other elements may have been appended before it
+                element.style.position = 'absolute';
+                element.style.left = 0;
+                element.style.top = 0;
+
                 const sidebar = document.querySelector('.sidebar');
 
-                // TODO: The problem at the moment is that each time we appendChild it does it further down the sidebar
-                // This is because it thinks all of the other elements are still there (even though they have been placed on the map)
-                // Probably need some sort of css or absolute positioning to make sure item is placed where it needs to be
                 sidebar && sidebar.appendChild(element);
 
                 const { offsetTop, offsetLeft } = currentTarget;
                 position.x = offsetLeft;
                 position.y = offsetTop;
-            } else if (currentTarget.style.transform) {
+            } else if (interaction.pointerIsDown && !interaction.interacting()) {
                 // If we are moving an already existing item, we need to make sure the position object is correct
-                const regex = /\.*translateZ\((.*)px\)/i;
+                const regex = /translate\(([\d]+)px, ([\d]+)px\)/i;
                 const transform = regex.exec(currentTarget.style.transform);
 
-                // TODO: I don't know if this is right, I'm seeing some weird behaviour
                 if (transform && transform.length > 1) {
-                    position.x = Number(transform[0]);
-                    position.y = Number(transform[1]);
+                    position.x = Number(transform[1]);
+                    position.y = Number(transform[2]);
                 }
             }
 
@@ -71,7 +73,6 @@ const DragAndDrop = ({ children, width }: { children: React.ReactElement[] | nul
         accept: '.item',
         // Only gets called when at least half of the object is in the dropzone
         ondrop: function(event) {
-            console.log('dropped', event);
         }
     });
 
