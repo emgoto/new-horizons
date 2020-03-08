@@ -10,6 +10,10 @@ export const Container = styled.div`
         touch-action: none;
         user-select: none;
     }
+
+    img {
+        pointer-events: none;
+    }
 `;
 
 export const Object = styled.div`

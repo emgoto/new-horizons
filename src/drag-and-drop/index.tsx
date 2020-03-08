@@ -73,6 +73,7 @@ const DragAndDrop = ({ children, width }: { children: React.ReactElement[] | nul
         accept: '.item',
         // Only gets called when at least half of the object is in the dropzone
         ondrop: function(event) {
+            // TODO: We need to register item somehow that it "exists". And also update it if we've just moved it   
         }
     });
 
